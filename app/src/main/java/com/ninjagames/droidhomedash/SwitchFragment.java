@@ -26,7 +26,7 @@ import org.json.JSONObject;
 
 public class SwitchFragment extends Fragment {
     private static final String IFTTT_URL = "https://maker.ifttt.com/trigger/%s/with/key/%s";
-    private String apiKey = "k4XHOr72W2cuYaa2DEr4N4PcRHDOvahuLr7T16SmuYP";
+    private String apiKey = "";
     private String eventName = "officelight";
     private boolean isOn = false;
 
@@ -52,6 +52,7 @@ public class SwitchFragment extends Fragment {
 
     private void readSettings() {
         eventName = PreferenceHelper.getString(getActivity(), "switch_name");
+        apiKey = PreferenceHelper.getString(getActivity(), "api_key");
         Log.i("SwitchFragment", eventName);
     }
 

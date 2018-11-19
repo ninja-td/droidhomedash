@@ -15,6 +15,7 @@ import android.widget.TextView;
 public class SwitchSettingsFragment extends Fragment {
 
     EditText eventNameText;
+    EditText apiKeyText;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -28,6 +29,22 @@ public class SwitchSettingsFragment extends Fragment {
             public void onTextChanged(CharSequence s, int start,
                                       int before, int count) {
                 PreferenceHelper.setString(getActivity(),"switch_name", eventNameText.getText().toString());
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+        });
+        apiKeyText = rootView.findViewById(R.id.api_key);
+        apiKeyText.setText(PreferenceHelper.getString(getActivity(), "api_key"));
+        apiKeyText.addTextChangedListener(new TextWatcher() {
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+                PreferenceHelper.setString(getActivity(),"api_key", eventNameText.getText().toString());
             }
             @Override
             public void afterTextChanged(Editable editable) {
