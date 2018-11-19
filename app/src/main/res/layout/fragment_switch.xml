@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".WeatherFragment">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <!-- TODO: Update blank fragment layout -->
+        <TextView
+            android:id="@+id/settings_button"
+            android:background="@drawable/settings_icon"
+            android:layout_gravity="right"
+            android:layout_width="30dp"
+            android:layout_height="30dp" />
+        <TextView
+            android:id="@+id/toggle_button"
+            android:textSize="35dp"
+            android:background="@drawable/switch_off_icon"
+            android:layout_gravity="left"
+            android:layout_width="120dp"
+            android:layout_height="120dp" />
+    </LinearLayout>
+
+</FrameLayout>

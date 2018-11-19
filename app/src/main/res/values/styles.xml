@@ -10,6 +10,15 @@
         <item name="android:background">@color/background_primary</item>
     </style>
 
+    <style name="SettingsTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorSettingsBackground</item>
+        <item name="colorPrimaryDark">@color/colorSettingsBackground</item>
+        <item name="colorAccent">@color/colorSettingsAccent</item>
+        <item name="android:textColor">@color/colorSettingsFont</item>
+        <item name="android:background">@color/colorSettingsBackground</item>
+    </style>
+
     <style name="FullscreenTheme" parent="AppTheme">
         <item name="android:actionBarStyle">@style/FullscreenActionBarStyle</item>
         <item name="android:windowActionBarOverlay">false</item>
@@ -27,8 +36,13 @@
     </style>
 
     <style name="ClockText">
-        <item name="android:textSize">150dp</item>
+        <item name="android:textSize">170dp</item>
         <item name="android:fontFamily">@font/digital7</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="NewsText">
+        <item name="android:textSize">15dp</item>
         <item name="android:textStyle">bold</item>
     </style>
 

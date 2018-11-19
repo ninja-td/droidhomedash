@@ -48,13 +48,14 @@ public class ClockFragment extends Fragment {
 
     private void updateTime() {
         Date dt = Calendar.getInstance().getTime();
-        hourText.setText(String.valueOf(dt.getHours()));
-        minuteText.setText(String.valueOf(dt.getMinutes()));
+        hourText.setText(String.format("%02d", dt.getHours() % 12));
+        minuteText.setText(String.format("%02d", dt.getMinutes()));
         int seconds = dt.getSeconds();
         if (seconds % 2 == 0) {
             separatorText.setText("");
         } else {
             separatorText.setText(":");
         }
+        ampmText.setText(dt.getHours() < 12 ? "am" : "pm");
     }
 }

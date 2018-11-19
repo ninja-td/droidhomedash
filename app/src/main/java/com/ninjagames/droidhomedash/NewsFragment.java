@@ -21,6 +21,9 @@ import android.widget.TextView;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 
 public class NewsFragment extends Fragment {
     private static final String NEWS_URL = "https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=d8ab8daeecf046df9a6e26938ed1f748";
@@ -35,10 +38,11 @@ public class NewsFragment extends Fragment {
 
         @Override
         public void onComplete(String result) {
-            updateWeather(result);
+            updateNews(result);
 
         }
     };
+    /*
     Runnable newsUpdateRunnable = new Runnable() {
         @Override
         public void run() {
@@ -56,6 +60,34 @@ public class NewsFragment extends Fragment {
         }
     };
     Handler newsCycleHandler = new Handler(Looper.getMainLooper());
+    */
+
+    TimerTask newsUpdateTask = new TimerTask() {
+        @Override
+        public void run() {
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    new UrlFetchHelper(newsUrlCallback).execute(NEWS_URL);
+                }
+            });
+        }
+    };
+
+    TimerTask newsCycleTask = new TimerTask() {
+        @Override
+        public void run() {
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    cycleNews();
+                }
+            });
+        }
+    };
+
+    Timer timer = new Timer();
+    Handler handler = new Handler(Looper.getMainLooper());
 
 
     public NewsFragment() {
@@ -67,12 +99,12 @@ public class NewsFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.news_fragment, container, false);
         newsText = rootView.findViewById(R.id.news_text);
-        newsUpdateRunnable.run();
+        timer.scheduleAtFixedRate(newsUpdateTask, 1, 60000 * 60 * 3);
         return rootView;
     }
 
 
-    private void updateWeather(String newsJsonText) {
+    private void updateNews(String newsJsonText) {
         try {
             JSONObject newsObj = new JSONObject(newsJsonText);
             newsList = newsObj.getJSONArray("articles");
@@ -82,7 +114,7 @@ public class NewsFragment extends Fragment {
             int maxTemp = mainStats.getInt("temp_max");
             int minTemp = mainStats.getInt("temp_min");
             */
-            newsTextCycleRunnable.run();
+            timer.scheduleAtFixedRate(newsCycleTask, 1, 10000);
         } catch (Exception e) {
             Log.e("NewsFragment", e.toString());
         }
@@ -92,7 +124,12 @@ public class NewsFragment extends Fragment {
     private void cycleNews() {
         try {
             JSONObject currentNews = newsList.getJSONObject(currentNewsIndex);
-            newsText.setText(currentNews.getString("title"));
+            String newsTitle = currentNews.getString("title");
+            if (newsTitle.length() > 200) {
+                newsTitle.substring(0, 200);
+                newsTitle = newsTitle + "...";
+            }
+            newsText.setText(newsTitle);
 
             currentNewsIndex++;
             if (currentNewsIndex >= newsList.length()) {

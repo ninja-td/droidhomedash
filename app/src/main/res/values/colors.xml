@@ -7,4 +7,9 @@
     <color name="black_overlay">#6690cbe4</color>
     <color name="text_color_primary">#9af1fa</color>
     <color name="background_primary">#000000</color>
+
+    <color name="colorSettingsBackground">#ffffff</color>
+    <color name="colorSettingsFont">#303030</color>
+    <color name="colorSettingsAccent">#fd8747</color>
+
 </resources>
