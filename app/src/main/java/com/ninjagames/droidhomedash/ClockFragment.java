@@ -48,7 +48,7 @@ public class ClockFragment extends Fragment {
 
     private void updateTime() {
         Date dt = Calendar.getInstance().getTime();
-        hourText.setText(String.format("%02d", dt.getHours() % 12));
+        hourText.setText(String.format("%02d", dt.getHours() % 12 == 0 ? 12 : dt.getHours() % 12));
         minuteText.setText(String.format("%02d", dt.getMinutes()));
         int seconds = dt.getSeconds();
         if (seconds % 2 == 0) {

@@ -30,8 +30,8 @@ public class WeatherFragment extends Fragment {
     TextView weatherText;
 
 
-    private double latitude = 0;
-    private double longitude = 0;
+    private double latitude = 37.3688;  // For Sunnyvale
+    private double longitude = -122.0363;
 
 
     UrlFetchHelper.Callback weatherUrlCallback = new UrlFetchHelper.Callback() {
@@ -131,7 +131,7 @@ public class WeatherFragment extends Fragment {
             int mainTemp = mainStats.getInt("temp");
             int maxTemp = mainStats.getInt("temp_max");
             int minTemp = mainStats.getInt("temp_min");
-            tempText.setText(String.format("%.1f \u00B0C", KelvinToCelcius(mainTemp)));
+            tempText.setText(String.format("%.1f", KelvinToCelcius(mainTemp)));
             weatherText.setText(mainText);
             minMaxText.setText(String.format("%.1f \u00B0C/%.1f \u00B0C", KelvinToCelcius(minTemp), KelvinToCelcius(maxTemp)));
         } catch (Exception e) {

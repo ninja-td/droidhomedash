@@ -5,9 +5,9 @@ android {
     defaultConfig {
         applicationId "com.ninjagames.droidhomedash"
         minSdkVersion 18
-        targetSdkVersion 27
-        versionCode 1
-        versionName "1.0"
+        targetSdkVersion 28
+        versionCode 5
+        versionName "1.0.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

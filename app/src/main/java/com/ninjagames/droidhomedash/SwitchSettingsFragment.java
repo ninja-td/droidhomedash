@@ -44,7 +44,7 @@ public class SwitchSettingsFragment extends Fragment {
         apiKeyText.addTextChangedListener(new TextWatcher() {
             public void onTextChanged(CharSequence s, int start,
                                       int before, int count) {
-                PreferenceHelper.setString(getActivity(),"api_key", eventNameText.getText().toString());
+                PreferenceHelper.setString(getActivity(),"api_key", apiKeyText.getText().toString());
             }
             @Override
             public void afterTextChanged(Editable editable) {

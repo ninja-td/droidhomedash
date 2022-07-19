@@ -36,7 +36,7 @@
     </style>
 
     <style name="ClockText">
-        <item name="android:textSize">170dp</item>
+        <item name="android:textSize">190dp</item>
         <item name="android:fontFamily">@font/digital7</item>
         <item name="android:textStyle">bold</item>
     </style>
