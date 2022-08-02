@@ -18,6 +18,7 @@ public class ClockFragment extends Fragment {
 
     TextView hourText;
     TextView minuteText;
+    TextView secondText;
     TextView separatorText;
     TextView ampmText;
 
@@ -41,6 +42,7 @@ public class ClockFragment extends Fragment {
         minuteText = (TextView) rootView.findViewById(R.id.minutetext);
         separatorText = (TextView) rootView.findViewById(R.id.separatortext);
         ampmText = (TextView) rootView.findViewById(R.id.ampmtext);
+        secondText = (TextView) rootView.findViewById(R.id.secondtext);
         //updateTime();
         secondHandler.postDelayed(secondUpdate, 1000);
         return rootView;
@@ -57,5 +59,6 @@ public class ClockFragment extends Fragment {
             separatorText.setText(":");
         }
         ampmText.setText(dt.getHours() < 12 ? "am" : "pm");
+        secondText.setText(String.format("%02d",seconds));
     }
 }

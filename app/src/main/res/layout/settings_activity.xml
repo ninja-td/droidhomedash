@@ -1,20 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:theme="@style/SettingsTheme"
     tools:context=".SettingsActivity">
-    <LinearLayout
-        android:orientation="vertical"
+
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
+
+        <Switch
+            android:id="@+id/showSecondsSwitch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:text="Show seconds"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="19dp" />
+
+        <TextView
+            android:id="@+id/stockTickerLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Stock Tickers"
+            tools:layout_editor_absoluteX="32dp"
+            tools:layout_editor_absoluteY="57dp" />
+
+        <EditText
+            android:id="@+id/stockTickers"
+            android:layout_width="206dp"
+            android:layout_height="20dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Name"
+            tools:layout_editor_absoluteX="173dp"
+            tools:layout_editor_absoluteY="56dp" />
+    </android.support.constraint.ConstraintLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
 
-            <fragment android:name="com.ninjagames.droidhomedash.SwitchSettingsFragment"
-                android:id="@+id/switchsettings"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+        <fragment
+            android:id="@+id/switchsettings"
+            android:name="com.ninjagames.droidhomedash.SwitchSettingsFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 

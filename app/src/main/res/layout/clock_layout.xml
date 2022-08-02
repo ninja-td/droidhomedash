@@ -10,6 +10,7 @@
         style="@style/ClockText"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:text="03"
         android:textSize="150dp" />
 
     <TextView
@@ -17,6 +18,7 @@
         style="@style/ClockText"
         android:layout_width="30sp"
         android:layout_height="match_parent"
+        android:text=":"
         android:textAlignment="center" />
 
     <TextView
@@ -24,17 +26,28 @@
         style="@style/ClockText"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:text="33"
         android:textSize="150dp" />
 
     <FrameLayout
         android:layout_width="wrap_content"
-        android:layout_height="match_parent">
+        android:layout_height="120dp"
+        android:layout_gravity="top">
 
         <TextView
             android:id="@+id/ampmtext"
             style="@style/ClockText"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:text="pm"
+            android:textSize="30dp" />
+
+        <TextView
+            android:id="@+id/secondtext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:text="10"
             android:textSize="30dp" />
 
     </FrameLayout>

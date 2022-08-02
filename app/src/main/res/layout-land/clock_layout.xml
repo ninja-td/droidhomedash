@@ -9,27 +9,41 @@
         android:id="@+id/hourtext"
         style="@style/ClockText"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        tools:text="04" />
+
     <TextView
         android:id="@+id/separatortext"
         style="@style/ClockText"
         android:layout_width="60sp"
-        android:textAlignment="center"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:text=":"
+        android:textAlignment="center" />
+
     <TextView
         android:id="@+id/minutetext"
         style="@style/ClockText"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:text="34" />
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent">
+
         <TextView
             android:id="@+id/ampmtext"
             style="@style/ClockText"
-            android:textSize="20sp"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:text="AM"
+            android:textSize="20sp" />
+        <TextView
+            android:id="@+id/secondtext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:textSize="30dp"
+            android:text="10" />
 
     </FrameLayout>
 

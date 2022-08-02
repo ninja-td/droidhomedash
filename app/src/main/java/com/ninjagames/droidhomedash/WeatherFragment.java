@@ -2,14 +2,15 @@ package com.ninjagames.droidhomedash;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -17,9 +18,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.json.JSONObject;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 
 public class WeatherFragment extends Fragment {
@@ -28,6 +36,11 @@ public class WeatherFragment extends Fragment {
     TextView tempText;
     TextView minMaxText;
     TextView weatherText;
+    TextView tempTMinus3;
+    TextView tempTMinus2;
+    TextView tempTMinus1;
+    LinearLayout minmaxContainer;
+    SharedPreferences sharedPreferences;
 
 
     private double latitude = 37.3688;  // For Sunnyvale
@@ -64,7 +77,12 @@ public class WeatherFragment extends Fragment {
         updateLocation();
         weatherText = rootView.findViewById(R.id.weather_text);
         tempText = rootView.findViewById(R.id.temp_text);
-        minMaxText = rootView.findViewById(R.id.minmax_text);
+        minMaxText = rootView.findViewById(R.id.minMaxText);
+        tempTMinus1 = rootView.findViewById(R.id.tempTMinus1);
+        tempTMinus2 = rootView.findViewById(R.id.tempTMinus2);
+        tempTMinus3 = rootView.findViewById(R.id.tempTMinus3);
+        minmaxContainer = rootView.findViewById(R.id.minmax_container);
+        sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
         weatherUpdateRunnable.run();
         return rootView;
     }
@@ -114,7 +132,6 @@ public class WeatherFragment extends Fragment {
             Location location = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
             longitude = location.getLongitude();
             latitude = location.getLatitude();
-            Log.i("Dashboard", String.valueOf(longitude));
 
         } catch (SecurityException securityException) {
             Log.i("Dashboard", "Security Exception accessing location");
@@ -131,16 +148,46 @@ public class WeatherFragment extends Fragment {
             int mainTemp = mainStats.getInt("temp");
             int maxTemp = mainStats.getInt("temp_max");
             int minTemp = mainStats.getInt("temp_min");
+
+            saveWeatherForDate(getDayOfYear(), maxTemp, minTemp);
+
+            tempTMinus1.setText(getWeatherForDate(getDayOfYear() - 1));
+            tempTMinus2.setText(getWeatherForDate(getDayOfYear() - 2));
+            tempTMinus3.setText(getWeatherForDate(getDayOfYear() - 3));
+
             tempText.setText(String.format("%.1f", KelvinToCelcius(mainTemp)));
             weatherText.setText(mainText);
-            minMaxText.setText(String.format("%.1f \u00B0C/%.1f \u00B0C", KelvinToCelcius(minTemp), KelvinToCelcius(maxTemp)));
+            minMaxText.setText(String.format("%s\n%s", formatKelvinTempInCelcius(minTemp), formatKelvinTempInCelcius(maxTemp)));
         } catch (Exception e) {
             Log.e("WeatherFragment", e.toString());
         }
 
     }
 
+    private int getDayOfYear() {
+        return Calendar.getInstance().get(Calendar.DAY_OF_YEAR);
+    }
+
     private double KelvinToCelcius(double inKelvin) {
         return inKelvin - 273.16;
+    }
+
+    private String formatKelvinTempInCelcius(double inKelvin) {
+        return String.format("%.1f\u00B0C", KelvinToCelcius(inKelvin));
+    }
+
+    private void saveWeatherForDate(int dayOfYear, int max, int min) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt("minTemp" + dayOfYear, min);
+        editor.putInt("maxTemp" + dayOfYear, max);
+        editor.apply();
+        editor.commit();
+    }
+
+    private String getWeatherForDate(int dayOfYear) {
+        if (sharedPreferences.contains("minTemp" + dayOfYear)) {
+            return "-\n-";
+        }
+        return formatKelvinTempInCelcius(sharedPreferences.getInt("minTemp" + dayOfYear, 0)) + "\n" + formatKelvinTempInCelcius(sharedPreferences.getInt("maxTemp" + dayOfYear, 0));
     }
 }
